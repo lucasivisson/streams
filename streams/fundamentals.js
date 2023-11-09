@@ -8,6 +8,7 @@ import { Readable } from 'node:stream'
 class OneToHundredStream extends Readable {
   index = 1
   // funcao de leitura de streams
+  // Eh um método especial especifico ja implementado para a classe Readable do modulo stream do Node e eh usado para fornecer a implementacao de leitura de dados da fonte.
   _read() {
     const i = this.index++
 
@@ -21,6 +22,16 @@ class OneToHundredStream extends Readable {
         this.push(buf)
       }
     }, 1000)
+  }
+}
+
+class MultiplyByTenStream extends Writable {
+  // chunk eh o pedaço lido da stream de leitura, eh o que enviamos dentro do metodo push
+  // encoding eh como essa informacao esta codificada
+  // funcao que a stream de escrita precisa chamar quando terminar sua execaucao
+  _write(chunk, encoding, callback) {
+    console.log(Number(chunk.toString()) * 10)
+    callback()
   }
 }
 
